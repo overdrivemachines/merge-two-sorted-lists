@@ -36,7 +36,7 @@ int main(int argc, char const* argv[]) {
 
 // merges list1 and list2
 // merged linked list is also sorted
-ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
+ListNode* mergeTwoLists_old(ListNode* list1, ListNode* list2) {
   ListNode *head, *node;
   head = list1;
 
@@ -84,6 +84,70 @@ ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
   }
 
   // cout << endl;
+
+  return head;
+}
+
+// Optimized solution
+ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
+  if ((list1 == NULL) && (list2 == NULL))
+    return NULL;
+  if (list1 == NULL)
+    return list2;
+  if (list2 == NULL)
+    return list1;
+
+  ListNode* head;
+  ListNode* tail;
+
+  // Set head
+  // Find out which one of the 2 lists start with the lowest value
+  if (list1->val < list2->val) {
+    head = list1;
+    list1 = list1->next;
+    if (list1 == NULL) {
+      head->next = list2;
+      return head;
+    }
+
+  } else {
+    head = list2;
+    list2 = list2->next;
+    if (list2 == NULL) {
+      head->next = list1;
+      return head;
+    }
+  }
+
+  head->next = NULL;
+  tail = head;
+
+  while ((list1 != NULL) && (list2 != NULL)) {
+    if (list1->val < list2->val) {
+      // Attach list1's first element to tail
+      tail->next = list1;
+
+      // remove 1st element from list1
+      list1 = list1->next;
+
+    } else {
+      // Attach list2's first element to tail
+      tail->next = list2;
+
+      // remove 1st element from list2
+      list2 = list2->next;
+    }
+
+    // the element that was added should be the tail
+    tail = tail->next;
+    tail->next = NULL;
+  }
+
+  if (list1 != NULL) {
+    tail->next = list1;
+  } else if (list2 != NULL) {
+    tail->next = list2;
+  }
 
   return head;
 }

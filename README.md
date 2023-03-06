@@ -27,3 +27,8 @@ Output: [0]
 - The number of nodes in both lists is in the range [0, 50].
 - -100 <= Node.val <= 100
 - Both list1 and list2 are sorted in non-decreasing order.
+
+# Solution
+
+Runtime: 6 ms Beats 80.29%
+Memory: 14.9 MB Beats 49.36%
